@@ -110,6 +110,8 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
     digest (3.1.0)
+    doorkeeper (5.5.4)
+      railties (>= 5)
     erubi (1.11.0)
     erubis (2.7.0)
     execjs (2.8.1)
@@ -378,6 +380,7 @@ DEPENDENCIES
   database_cleaner-active_record
   debug
   devise (~> 4.8.1)
+  doorkeeper (~> 5.5.4)
   factory_bot_rails
   ffaker
   haml-rails (~> 2.0.1)

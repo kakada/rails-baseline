@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  use_doorkeeper do
+    controllers token_info: "token_info"
+  end
+
   devise_for :users, path: "/", controllers: { confirmations: "confirmations", omniauth_callbacks: "users/omniauth_callbacks", sessions: "sessions" }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -1,11 +1,12 @@
 %nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-light
   .sb-sidenav-menu
     .nav
-      / .sb-sidenav-menu-heading Core
-      / %a.nav-link{:href => "index.html"}
-      /   .sb-nav-link-icon
-      /     %i.fas.fa-tachometer-alt
-      /   Dashboard
+      - if ENV['GF_DASHBOARD_URL'].present?
+        .sb-sidenav-menu-heading Core
+        %a.nav-link{href: ENV['GF_DASHBOARD_URL'], target: '_blank'}
+          .sb-nav-link-icon
+            %i.fas.fa-fw.fa-tachometer-alt
+          %span= t("sidebar.dashboard")
 
       .sb-sidenav-menu-heading Interface
 
@@ -13,6 +14,12 @@
         .sb-nav-link-icon
           %i.fa-solid.fa-users
         = t('sidebar.users')
+
+      - if current_user.primary_admin?
+        = link_to oauth_applications_url, class: ['nav-link'] do
+          .sb-nav-link-icon
+            %i.fa-solid.fa-grip
+          = t('sidebar.oauth_applicatons')
 
       / %a.nav-link.collapsed{"aria-controls" => "collapseLayouts", "aria-expanded" => "false", "data-bs-target" => "#collapseLayouts", "data-bs-toggle" => "collapse", :href => "#"}
       /   .sb-nav-link-icon

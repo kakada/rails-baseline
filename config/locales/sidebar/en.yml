@@ -1,0 +1,5 @@
+en:
+  sidebar:
+    users: Users
+    oauth_applicatons: Oauth Applications
+    dashboard: Dashboard

@@ -45,6 +45,16 @@ class User < ApplicationRecord
 
   ROLES = [["Admin", "admin"]]
 
+  has_many :access_grants,
+             class_name: "Doorkeeper::AccessGrant",
+             foreign_key: :resource_owner_id,
+             dependent: :delete_all # or :destroy if you need callbacks
+
+  has_many :access_tokens,
+           class_name: "Doorkeeper::AccessToken",
+           foreign_key: :resource_owner_id,
+           dependent: :delete_all # or :destroy if you need callbacks
+
   def status
     return "archived" if deleted?
     return "locked" if access_locked?
