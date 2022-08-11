@@ -26,6 +26,7 @@
 #  locale                 :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  gf_user_id             :integer
 #
 require "rails_helper"
 

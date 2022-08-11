@@ -11,7 +11,7 @@ services:
       - 'db:/var/lib/postgresql/data'
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
-  web:
+  web: &rails
     build:
       context: .
       dockerfile: Dockerfile
@@ -23,6 +23,7 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - redis
     stdin_open: true
     tty: true
     env_file: app.env
@@ -31,3 +32,11 @@ services:
       options:
         max-size: 1m
         max-file: '10'
+
+  redis:
+    image: redis:5.0.6
+
+  sidekiq:
+    <<: *rails
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    ports: []

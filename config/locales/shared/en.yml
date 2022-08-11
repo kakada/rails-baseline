@@ -25,3 +25,4 @@ en:
     all: All
     copied: Copied
     email: Email
+    unauthorized_alert_message: You are not authorized to perform this action.

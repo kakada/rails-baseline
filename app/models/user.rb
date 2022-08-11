@@ -26,12 +26,16 @@
 #  locale                 :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  gf_user_id             :integer
 #
 class User < ApplicationRecord
+  acts_as_paranoid
+
   include Users::Filter
   include Users::Confirmable
+  include Users::CallbackDashboard
 
-  acts_as_paranoid
+  attr_accessor :skip_callback
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -40,10 +44,11 @@ class User < ApplicationRecord
 
   enum role: {
     primary_admin: 1,
-    admin: 2
+    admin: 2,
+    staff: 3
   }
 
-  ROLES = [["Admin", "admin"]]
+  ROLES = [["Admin", "admin"], ["Staff/Officer", "staff"]]
 
   has_many :access_grants,
              class_name: "Doorkeeper::AccessGrant",
@@ -62,5 +67,9 @@ class User < ApplicationRecord
     return "deactivated" unless actived?
 
     "pending"
+  end
+
+  def display_name
+    email.split("@").first.upcase
   end
 end

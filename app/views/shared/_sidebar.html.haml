@@ -1,7 +1,7 @@
 %nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-light
   .sb-sidenav-menu
     .nav
-      - if ENV['GF_DASHBOARD_URL'].present?
+      - if policy(:dashboard).show?
         .sb-sidenav-menu-heading Core
         %a.nav-link{href: ENV['GF_DASHBOARD_URL'], target: '_blank'}
           .sb-nav-link-icon

@@ -1,3 +1,5 @@
+require "sidekiq/web"
+
 Rails.application.routes.draw do
   use_doorkeeper do
     controllers token_info: "token_info"
@@ -23,4 +25,6 @@ Rails.application.routes.draw do
   end
 
   resource :locale, only: [:update]
+
+  mount Sidekiq::Web => "/sidekiq"
 end
