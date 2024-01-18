@@ -29,6 +29,7 @@
 #  sign_in_type           :integer          default("system")
 #  otp_token              :string
 #  otp_sent_at            :datetime
+#  tg_username            :string
 #
 FactoryBot.define do
   factory :user do

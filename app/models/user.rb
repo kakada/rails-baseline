@@ -29,6 +29,7 @@
 #  sign_in_type           :integer          default("system")
 #  otp_token              :string
 #  otp_sent_at            :datetime
+#  tg_username            :string
 #
 class User < ApplicationRecord
   include Users::Filter
@@ -39,7 +40,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :confirmable, :lockable, :trackable,
-         :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :facebook]
+         :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :facebook, :telegram]
 
   enum role: {
     primary_admin: 1,
@@ -50,6 +51,7 @@ class User < ApplicationRecord
     system: 1,
     google_oauth2: 2,
     facebook: 3,
+    telegram: 4,
   }
 
   before_create :assign_password

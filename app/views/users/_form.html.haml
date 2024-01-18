@@ -1,12 +1,8 @@
 .w-50.view-center
   = simple_form_for @user do |f|
-    / .d-flex
-    /   .control{style: 'margin-right: -16px;'}
-    /     = form_check_toggle({name: "user[actived]", checked: f.object.actived}).html_safe
-    /   %label.flex-1= t('user.set_active')
-
     .mb-3= f.input :email, label: t('user.email'), input_html: { readonly: @user.persisted? }
     .mb-3= f.input :role, label: t('user.role'), collection: User::ROLES, input_html: { class: 'role custom-select' }, include_blank: false
+    .mb-3= f.input :tg_username, label: t('user.tg_username')
 
     .actions
       = link_to t('shared.cancel'), users_path, class: 'btn btn-secondary me-1'

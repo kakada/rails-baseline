@@ -19,6 +19,7 @@ en:
     locale_km: ខ្មែរ
     locale_en: English
     last_sign_in_via: Last sign in via %{type}
+    tg_username: Telegram username
 
   activerecord:
     attributes:
