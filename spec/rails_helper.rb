@@ -8,6 +8,7 @@ require "rspec/rails"
 # Add additional requires below this line. Rails is not loaded until this point!
 
 require "support/factory_bot"
+require "support/freeze_time_helper"
 require "database_cleaner/active_record"
 require "pundit/rspec"
 require "rack/attack"

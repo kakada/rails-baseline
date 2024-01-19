@@ -1,5 +1,4 @@
 class Rack::Attack
-
   ### Configure Cache ###
 
   # If you don't want to use Rails.cache (Rack::Attack's default), then
@@ -13,13 +12,10 @@ class Rack::Attack
 
   # Always allow requests from localhost
   # (blocklist & throttles are skipped), then uncomment these lines.
-  # Rack::Attack.safelist("allow from localhost") do |req|
-  #   # safelist IPs semi-colon separate
-  #   safelist_ips = ENV.fetch("SAFELIST_IPS") { "" } .split(";")
-  #   safelist_ips.each do |ip|
-  #     "127.0.0.1" == req.ip || "::1" == req.ip
-  #   end
-  # end
+  Rack::Attack.safelist("allow from localhost") do |req|
+    # Requests are allowed if the return value is truthy
+    "127.0.0.1" == req.ip || "::1" == req.ip
+  end
 
   # blocklist IPs semi-colon separate
   blocklist_ips = ENV.fetch("BLOCKLIST_IPS") { "" } .split(";")
@@ -52,7 +48,7 @@ class Rack::Attack
   # Throttle all requests by IP (60rpm)
   #
   # Key: "rack::attack:#{Time.now.to_i/:period}:req/ip:#{req.ip}"
-  throttle('req/ip', limit: ENV.fetch("THROTTLE_REQUEST_LIMIT") { 5 }.to_i, period: ENV.fetch("THROTTLE_PERIOD_IN_SECOND") { 1 }.to_i.second) do |req|
+  throttle("req/ip", limit: ENV.fetch("THROTTLE_REQUEST_LIMIT") { 5 }.to_i, period: ENV.fetch("THROTTLE_PERIOD_IN_SECOND") { 1 }.to_i.seconds) do |req|
     req.ip # unless req.path.start_with?('/assets')
   end
 
@@ -64,11 +60,11 @@ class Rack::Attack
   # throttle logins for another user and force their login requests to be
   # denied, but that's not very common and shouldn't happen to you. (Knock
   # on wood!)
-  throttle('logins/email', limit: 5, period: 1.seconds) do |req|
-    if req.path == '/sign_in' && req.post?
+  throttle("logins/email", limit: ENV.fetch("THROTTLE_REQUEST_LIMIT") { 5 }.to_i, period: ENV.fetch("THROTTLE_PERIOD_IN_SECOND") { 1 }.to_i.seconds) do |req|
+    if req.path == "/sign_in" && req.post?
       # Normalize the email, using the same logic as your authentication process, to
       # protect against rate limit bypasses. Return the normalized email if present, nil otherwise.
-      req.params['email'].to_s.downcase.gsub(/\s+/, "").presence
+      req.params["email"].to_s.downcase.gsub(/\s+/, "").presence
     end
   end
 
@@ -81,8 +77,8 @@ class Rack::Attack
   # believing that they've successfully broken your app (or you just want to
   # customize the response), then uncomment these lines.
   self.throttled_responder = lambda do |env|
-   [ 503,  # status
-     {},   # headers
-     ["Internal Server Error"]] # body
+    [ 503,  # status
+      {},   # headers
+      ["Internal Server Error"]] # body
   end
 end
