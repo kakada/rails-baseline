@@ -1,8 +1,18 @@
-.w-50.view-center
+.w-50.view-center.user-form
   = simple_form_for @user do |f|
     .mb-3= f.input :email, label: t('user.email'), input_html: { readonly: @user.persisted? }
     .mb-3= f.input :role, label: t('user.role'), collection: User::ROLES, input_html: { class: 'role custom-select' }, include_blank: false
-    .mb-3= f.input :tg_username, label: t('user.tg_username')
+
+    .mb-3
+      = f.label :tg_username do
+        .d-flex
+          = t('user.tg_username')
+          / Button trigger modal
+          %a.btn.btn-circle.btn-outline-secondary.btn-sm.tg-username-trigger-button.ms-2{"data-bs-target" => "#tgusernameModal", "data-bs-toggle" => "modal", :type => "button"}
+            %i.fa-solid.fa-info
+          = render "telegram_username"
+
+      = f.input :tg_username, label: false
 
     .actions
       = link_to t('shared.cancel'), users_path, class: 'btn btn-secondary me-1'

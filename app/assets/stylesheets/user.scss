@@ -29,3 +29,20 @@
 button > * {
   pointer-events: none;
 }
+
+.user-form {
+  .tip-telegram-image {
+    width: 270px;
+    height: auto;
+  }
+
+  .tg-username-trigger-button {
+    width: 12px;
+    height: 12px;
+    padding: 0px;
+
+    i {
+      font-size: 8px;
+    }
+  }
+}
