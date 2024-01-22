@@ -59,6 +59,7 @@ gem "paranoia", "~> 2.6.0"
 gem "omniauth-rails_csrf_protection", "~> 1.0.1"
 gem "omniauth-google-oauth2", "~> 1.0.1"
 gem "omniauth-facebook", "~> 9.0.0"
+gem "omniauth-telegram", "~> 0.2.1"
 gem "recaptcha", "~> 5.10.0"
 
 gem "sentry-ruby"

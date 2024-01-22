@@ -16,6 +16,7 @@
         %thead
           %tr
             %th #
+            %th
             %th= sortable "email", t("user.email")
             %th= t('user.role')
             %th= t('user.status')
@@ -28,6 +29,10 @@
           - @users.each_with_index do |user, index|
             %tr{class: ("disabled-bg" unless user.actived?)}
               %td= @pagy.from + index
+              %td
+                - if user.tg_username.present?
+                  %span{'data-bs-toggle': 'tooltip', title: "#{t('user.tg_username')}: #{user.tg_username}"}
+                    %i.fa-brands.fa-telegram{style: 'color: #229ED9'}
               %td= user.email
               %td= t("user.#{user.role}")
               %td.status{ class: user.status }
@@ -35,10 +40,11 @@
               %td= timeago(user.created_at).html_safe
               %td= timeago(user.updated_at).html_safe
               %td
-                %span{'data-bs-toggle': 'tooltip', title: t('user.last_sign_in_via', type: user.sign_in_type)}
-                  = image_tag "#{user.sign_in_type}", width: 16
+                - if user.last_sign_in_at.present?
+                  %span{'data-bs-toggle': 'tooltip', title: t('user.last_sign_in_via', type: user.sign_in_type)}
+                    = image_tag "#{user.sign_in_type}", width: 16
 
-                = timeago(user.last_sign_in_at).html_safe
+                  = timeago(user.last_sign_in_at).html_safe
               %td
                 .d-flex.justify-content-end{'data-controller': "users"}
                   = render 'action_buttons', user: user

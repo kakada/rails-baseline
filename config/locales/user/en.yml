@@ -19,6 +19,12 @@ en:
     locale_km: ខ្មែរ
     locale_en: English
     last_sign_in_via: Last sign in via %{type}
+    tg_username: Telegram username
+    to_get_tg_username: "Follow these steps to get Telegram username:"
+    tg_username_step1: Click on menu button
+    tg_username_step2: Click on the profile
+    tg_username_step3: Scroll down till seeing username
+    tg_username_step4: "Fill in the Telegram username into the system (Note: no need to add symbol \"@\")"
 
   activerecord:
     attributes:

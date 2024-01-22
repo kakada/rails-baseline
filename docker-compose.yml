@@ -42,3 +42,11 @@ services:
     image: rails-baseline_web:latest
     command: bundle exec sidekiq -C config/sidekiq.yml
     ports: []
+
+  ngrok:
+    image: wernight/ngrok
+    ports:
+      - 4040:4040
+    environment:
+      NGROK_PORT: 'web:3000'
+      NGROK_AUTH: token
