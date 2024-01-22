@@ -102,4 +102,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   gem "shoulda-matchers"
+  gem "timecop"
 end
